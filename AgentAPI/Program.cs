@@ -1,6 +1,29 @@
+using Azure.Identity;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Agents;
+using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
+using AgentAPI.Agents;
+using AgentAPI.Agents.Plugins;
+using Microsoft.AspNetCore.Mvc;
+
+#pragma warning disable SKEXP0010
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+
+// Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+builder.Services.AddKernel()
+                .AddAzureOpenAIChatCompletion(builder.Configuration.GetConnectionString("aoai-chat-deployment") ?? string.Empty,
+                                              builder.Configuration.GetConnectionString("aoai-endpoint") ?? string.Empty,
+                                              builder.Configuration.GetConnectionString("aoai-key") ?? string.Empty)
+                .Plugins.AddFromObject(new KBPlugin(builder.Configuration))
+                ;
+
+builder.Services.AddTransient<ExactQnA_Agent>();
+
+
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -36,6 +59,16 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+app.MapGet("/agent/answer", async ([FromQuery]string question, ExactQnA_Agent agent) =>
+{
+    if (string.IsNullOrWhiteSpace(question))
+    {
+        return Results.BadRequest("Question cannot be empty.");
+    }
+    var answer = await agent.GetAnswerAsync(question);
+    return Results.Ok(answer);
+});
 
 app.Run();
 
