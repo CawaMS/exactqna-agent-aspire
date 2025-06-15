@@ -1,6 +1,8 @@
 .vs
 ChatClient/bin/
 ChatClient/obj/
+AgentAPI/bin/
+AgentAPI/obj/
 ExactQnA-Agent-Aspire.AppHost/bin/
 ExactQnA-Agent-Aspire.AppHost/obj/
 ExactQnA-Agent-Aspire.ServiceDefaults/bin/

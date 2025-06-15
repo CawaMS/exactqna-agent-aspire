@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\cawa\\source\\repos\\ExactQnA-Agent-Aspire\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A6A9BDF2-E7CF-4F65-85F4-EC47D935E098}|ExactQnA-Agent-Aspire.AppHost\\ExactQnA-Agent-Aspire.AppHost.csproj|c:\\users\\cawa\\source\\repos\\exactqna-agent-aspire\\exactqna-agent-aspire.apphost\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6A9BDF2-E7CF-4F65-85F4-EC47D935E098}|ExactQnA-Agent-Aspire.AppHost\\ExactQnA-Agent-Aspire.AppHost.csproj|solutionrelative:exactqna-agent-aspire.apphost\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{28C779C1-094B-C540-16C1-83D00A1D7236}|ChatClient\\ChatClient.csproj|c:\\users\\cawa\\source\\repos\\exactqna-agent-aspire\\chatclient\\components\\pages\\chat\\chat.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{28C779C1-094B-C540-16C1-83D00A1D7236}|ChatClient\\ChatClient.csproj|solutionrelative:chatclient\\components\\pages\\chat\\chat.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -26,11 +30,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\cawa\\source\\repos\\ExactQnA-Agent-Aspire\\ExactQnA-Agent-Aspire.AppHost\\Program.cs",
+              "RelativeDocumentMoniker": "ExactQnA-Agent-Aspire.AppHost\\Program.cs",
+              "ToolTip": "C:\\Users\\cawa\\source\\repos\\ExactQnA-Agent-Aspire\\ExactQnA-Agent-Aspire.AppHost\\Program.cs",
+              "RelativeToolTip": "ExactQnA-Agent-Aspire.AppHost\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-15T20:30:58.655Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "ChatMessageList.razor",
               "DocumentMoniker": "C:\\Users\\cawa\\source\\repos\\ExactQnA-Agent-Aspire\\ChatClient\\Components\\Pages\\Chat\\ChatMessageList.razor",
               "RelativeDocumentMoniker": "ChatClient\\Components\\Pages\\Chat\\ChatMessageList.razor",
@@ -38,12 +55,11 @@
               "RelativeToolTip": "ChatClient\\Components\\Pages\\Chat\\ChatMessageList.razor",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-15T05:35:36.257Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-15T05:35:36.257Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "_Imports.razor",
               "DocumentMoniker": "C:\\Users\\cawa\\source\\repos\\ExactQnA-Agent-Aspire\\ChatClient\\Components\\_Imports.razor",
               "RelativeDocumentMoniker": "ChatClient\\Components\\_Imports.razor",
@@ -51,12 +67,11 @@
               "RelativeToolTip": "ChatClient\\Components\\_Imports.razor",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-15T03:36:24.919Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-15T03:36:24.919Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ChatSuggestions.razor",
               "DocumentMoniker": "C:\\Users\\cawa\\source\\repos\\ExactQnA-Agent-Aspire\\ChatClient\\Components\\Pages\\Chat\\ChatSuggestions.razor",
               "RelativeDocumentMoniker": "ChatClient\\Components\\Pages\\Chat\\ChatSuggestions.razor",
@@ -64,12 +79,11 @@
               "RelativeToolTip": "ChatClient\\Components\\Pages\\Chat\\ChatSuggestions.razor",
               "ViewState": "AgIAACUAAAAAAAAAAAAywDIAAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-15T03:36:04.018Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-15T03:36:04.018Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Chat.razor",
               "DocumentMoniker": "C:\\Users\\cawa\\source\\repos\\ExactQnA-Agent-Aspire\\ChatClient\\Components\\Pages\\Chat\\Chat.razor",
               "RelativeDocumentMoniker": "ChatClient\\Components\\Pages\\Chat\\Chat.razor",
