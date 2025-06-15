@@ -2,8 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.VectorData;
 using ChatClient.Components;
-using ChatClient.Services;
-using ChatClient.Services.Ingestion;
 using Azure;
 using Azure.Identity;
 using Azure.AI.OpenAI;
@@ -23,19 +21,10 @@ var azureOpenAi = new AzureOpenAIClient(
 var chatClient = azureOpenAi.AsChatClient("gpt-4o-mini");
 var embeddingGenerator = azureOpenAi.AsEmbeddingGenerator("text-embedding-3-small");
 
-var vectorStore = new JsonVectorStore(Path.Combine(AppContext.BaseDirectory, "vector-store"));
-
-builder.Services.AddSingleton<IVectorStore>(vectorStore);
-builder.Services.AddScoped<DataIngestor>();
-builder.Services.AddSingleton<SemanticSearch>();
 builder.Services.AddChatClient(chatClient).UseFunctionInvocation().UseLogging();
 builder.Services.AddEmbeddingGenerator(embeddingGenerator);
 
-builder.Services.AddDbContext<IngestionCacheDbContext>(options =>
-    options.UseSqlite("Data Source=ingestioncache.db"));
-
 var app = builder.Build();
-IngestionCacheDbContext.Initialize(app.Services);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -56,8 +45,5 @@ app.MapRazorComponents<App>()
 // other sources by implementing IIngestionSource.
 // Important: ensure that any content you ingest is trusted, as it may be reflected back
 // to users or could be a source of prompt injection risk.
-await DataIngestor.IngestDataAsync(
-    app.Services,
-    new PDFDirectorySource(Path.Combine(builder.Environment.WebRootPath, "Data")));
 
 app.Run();

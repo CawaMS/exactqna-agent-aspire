@@ -22,4 +22,8 @@
     <ProjectReference Include="..\ExactQnA-Agent-Aspire.ServiceDefaults\ExactQnA-Agent-Aspire.ServiceDefaults.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
