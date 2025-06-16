@@ -1,15 +1,21 @@
+using Azure;
+using Azure.AI.OpenAI;
+using Azure.Identity;
+using ChatClient.Components;
+using ChatClient.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.VectorData;
-using ChatClient.Components;
-using Azure;
-using Azure.Identity;
-using Azure.AI.OpenAI;
 using System.ClientModel;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+
+builder.Services.AddHttpClient<Exact_QnA_Service>(client =>
+{
+    client.BaseAddress = new("https+http://AgentAPI");
+});
 
 // You will need to set the endpoint and key to your own values
 // You can do this using Visual Studio's "Manage User Secrets" UI, or on the command line:

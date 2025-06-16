@@ -12,11 +12,8 @@ var aoai_key = builder.AddConnectionString("aoai-key"); // AzureOpenAISettings:A
 var aoai_resource_name = builder.AddConnectionString("aoai-resource-name"); // AzureOpenAISettings:AOAIResourceName
 var amr_semantic_cache_provider = builder.AddConnectionString("amr-semantic-cache-provider"); // AzureManagedRedisSettings:SemanticCacheProvider
 
-
-builder.AddProject<Projects.ChatClient>("ChatClient")
-       .WithReference(openai);
-
-builder.AddProject<Projects.AgentAPI>("agentapi")
+var agentapi = builder.AddProject<Projects.AgentAPI>("agentapi")
+        .WithExternalHttpEndpoints()
         .WithReference(aoai_endpoint)
         .WithReference(aoai_embedding_deployment)
         .WithReference(aoai_chat_deployment)
@@ -24,5 +21,10 @@ builder.AddProject<Projects.AgentAPI>("agentapi")
         .WithReference(aoai_key)
         .WithReference(aoai_resource_name)
         .WithReference(amr_semantic_cache_provider);
+
+builder.AddProject<Projects.ChatClient>("ChatClient")
+       .WithExternalHttpEndpoints()
+       .WithReference(openai)
+        .WithReference(agentapi);
 
 builder.Build().Run();
