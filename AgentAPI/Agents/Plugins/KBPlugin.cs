@@ -19,7 +19,7 @@ internal sealed class KBPlugin(IConfiguration config)
         var cache = provider.AzureOpenAISemanticCache(config.GetConnectionString("aoai-embedding-key") ?? string.Empty,
                                                       config.GetConnectionString("aoai-resource-name") ?? string.Empty,
                                                       config.GetConnectionString("aoai-embedding-deployment") ?? string.Empty,
-                                                      1536, threshold: 0.15);
+                                                      1536, threshold: 0.30);
 
         var result = cache.GetSimilar(question);
         if (result.Length > 0)
