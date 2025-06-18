@@ -13,12 +13,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
+builder.Services.AddTransient<KBPlugin>();
+
+using var tempProvider = builder.Services.BuildServiceProvider();
 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 builder.Services.AddKernel()
                 .AddAzureOpenAIChatCompletion(builder.Configuration.GetConnectionString("aoai-chat-deployment") ?? string.Empty,
                                               builder.Configuration.GetConnectionString("aoai-endpoint") ?? string.Empty,
                                               builder.Configuration.GetConnectionString("aoai-key") ?? string.Empty)
-                .Plugins.AddFromObject(new KBPlugin(builder.Configuration))
+                .Plugins.AddFromObject(tempProvider.GetRequiredService<KBPlugin>())
                 ;
 
 builder.Services.AddTransient<ExactQnA_Agent>();

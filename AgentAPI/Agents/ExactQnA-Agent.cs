@@ -30,9 +30,9 @@ public class ExactQnA_Agent
                 Name = "ExactAnswerAgent",
                 Instructions =
                         """
-                        You are an agent designed to answer question only from the KBPlugin plugin. Do not generate any other content if the KBPlugin could find an answer.
-                        The {{$question}} is what user asks as input message. Just run the user input through by the KBPlugin plugin.
-                        If the KBPlugin plugin cannot find an answer, then you can generate a response to the user.
+                        @KBPlugin is a plugin that provides answers to questions based on a knowledge base.
+                        You are a question answering agent. You are requested to send the question to the KBPlugin and return the exact answer without rewriting the answer.
+                        If KBPlugin does not have an answer, please then create content based on the best of your knowledge.
                         """,
                 Kernel = _kernel,
                 Arguments =
