@@ -6,6 +6,10 @@
         {
             <ChatMessageItem @key="@message" Message="@message" />
         }
+        @if (Messages.Last().Role == ChatRole.User)
+        {
+            <LoadingSpinner />
+        }
 
         @if (InProgressMessage is not null)
         {
