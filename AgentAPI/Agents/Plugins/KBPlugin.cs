@@ -1,11 +1,13 @@
 ﻿using Azure;
 using Azure.AI.OpenAI;
+using Azure.Identity;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Client;
 using Microsoft.SemanticKernel;
 using Redis.OM;
 using Redis.OM.Vectorizers;
+using StackExchange.Redis;
 
 namespace AgentAPI.Agents.Plugins;
 
@@ -17,10 +19,24 @@ internal sealed class KBPlugin(IConfiguration config, ILogger<KBPlugin> logger)
         logger.LogInformation("Received question: {Question}", question);
 
         string answer = "";
-        var provider = new RedisConnectionProvider(config.GetConnectionString("amr-semantic-cache-provider") ?? string.Empty);
-        var cache = provider.AzureOpenAISemanticCache(config.GetConnectionString("aoai-embedding-key") ?? string.Empty,
+
+        ConfigurationOptions options = new ConfigurationOptions
+        {
+            EndPoints = { config.GetConnectionString("redis") ?? string.Empty }
+        };
+
+        // Configure for Azure with DefaultAzureCredential
+        await options.ConfigureForAzureWithTokenCredentialAsync(new DefaultAzureCredential());
+
+        // Connect to Redis using EntraId authentication
+        var muxer = ConnectionMultiplexer.Connect(options);
+
+        // Create Redis OM connection provider using the authenticated connection
+        var provider = new RedisConnectionProvider(muxer);
+
+        var cache = provider.AzureOpenAISemanticCache(config.GetConnectionString("aoai-key") ?? string.Empty,
                                                       config.GetConnectionString("aoai-resource-name") ?? string.Empty,
-                                                      config.GetConnectionString("aoai-embedding-deployment") ?? string.Empty,
+                                                      config.GetConnectionString("embedding-model-id") ?? string.Empty,
                                                       1536, threshold: 0.15);
 
         logger.LogInformation("Initialized Redis connection provider and semantic cache.");
