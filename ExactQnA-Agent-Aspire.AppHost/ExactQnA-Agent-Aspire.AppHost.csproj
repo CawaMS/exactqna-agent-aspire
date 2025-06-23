@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AgentAPI\AgentAPI.csproj" />
-    <ProjectReference Include="..\ChatClient\ChatClient.csproj" />
+    <ProjectReference Include="..\chatclient\ChatClient.csproj" />
   </ItemGroup>
 
 </Project>

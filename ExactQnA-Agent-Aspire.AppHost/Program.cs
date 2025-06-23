@@ -28,7 +28,7 @@ var agentapi = builder.AddProject<Projects.AgentAPI>("agentapi")
 
 
 
-builder.AddProject<Projects.ChatClient>("ChatClient")
+builder.AddProject<Projects.ChatClient>("chatclient")
        .WithExternalHttpEndpoints()
        .WithReference(agentapi)
        .WithReference(aoai)

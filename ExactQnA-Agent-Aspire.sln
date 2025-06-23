@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExactQnA-Agent-Aspire.AppHo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExactQnA-Agent-Aspire.ServiceDefaults", "ExactQnA-Agent-Aspire.ServiceDefaults\ExactQnA-Agent-Aspire.ServiceDefaults.csproj", "{C15F558B-C2C1-EA1B-E639-4A36E4F0720C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatClient", "ChatClient\ChatClient.csproj", "{28C779C1-094B-C540-16C1-83D00A1D7236}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatClient", "chatclient\ChatClient.csproj", "{28C779C1-094B-C540-16C1-83D00A1D7236}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentAPI", "AgentAPI\AgentAPI.csproj", "{844EB6C6-E274-8908-02E9-84BD7C50DBAF}"
 EndProject

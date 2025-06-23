@@ -37,6 +37,7 @@ module aoai 'aoai/aoai.module.bicep' = {
   scope: rg
   params: {
     location: location
+    principalId: resources.outputs.MANAGED_IDENTITY_PRINCIPAL_ID
   }
 }
 module aoai_roles 'aoai-roles/aoai-roles.module.bicep' = {
@@ -54,18 +55,10 @@ module redis 'redis/redis.module.bicep' = {
   scope: rg
   params: {
     location: location
-  }
-}
-module redis_roles 'redis-roles/redis-roles.module.bicep' = {
-  name: 'redis-roles'
-  scope: rg
-  params: {
-    location: location
     principalId: resources.outputs.MANAGED_IDENTITY_PRINCIPAL_ID
-    principalName: resources.outputs.MANAGED_IDENTITY_NAME
-    redis_outputs_name: redis.outputs.name
   }
 }
+
 
 output MANAGED_IDENTITY_CLIENT_ID string = resources.outputs.MANAGED_IDENTITY_CLIENT_ID
 output MANAGED_IDENTITY_NAME string = resources.outputs.MANAGED_IDENTITY_NAME
@@ -77,4 +70,10 @@ output AZURE_CONTAINER_APPS_ENVIRONMENT_NAME string = resources.outputs.AZURE_CO
 output AZURE_CONTAINER_APPS_ENVIRONMENT_ID string = resources.outputs.AZURE_CONTAINER_APPS_ENVIRONMENT_ID
 output AZURE_CONTAINER_APPS_ENVIRONMENT_DEFAULT_DOMAIN string = resources.outputs.AZURE_CONTAINER_APPS_ENVIRONMENT_DEFAULT_DOMAIN
 output AOAI_CONNECTIONSTRING string = aoai.outputs.connectionString
+output AOAI_CHAT_MODEL_DEPLOYMENT_ID string = aoai.outputs.chatModelDeploymentId
+output AOAI_EMBEDDING_MODEL_DEPLOYMENT_ID string = aoai.outputs.embeddingModelDeploymentId
+output AOAI_CHAT_MODEL_DEPLOYMENT_NAME string = aoai.outputs.chatModelDeploymentName
+output AOAI_KEY_KEYVAULT_SECRET_URI string = aoai.outputs.aoaiKeyKvSecret
+output AOAI_NAME string = aoai.outputs.aoaiCustomSubDomainName
 output REDIS_CONNECTIONSTRING string = redis.outputs.connectionString
+output REDIS_ENDPOINT string = redis.outputs.redisEndpoint

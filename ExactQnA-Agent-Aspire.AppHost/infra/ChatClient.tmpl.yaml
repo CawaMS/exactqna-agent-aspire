@@ -23,10 +23,14 @@ properties:
     secrets:
       - name: connectionstrings--aoai
         value: '{{ .Env.AOAI_CONNECTIONSTRING }}'
+      - name: connectionstrings--chat-model-id
+        value: '{{ .Env.AOAI_CHAT_MODEL_DEPLOYMENT_ID }}'
+      - name: connectionstrings--embedding-model-id
+        value: '{{ .Env.AOAI_EMBEDDING_MODEL_DEPLOYMENT_ID }}'
   template:
     containers:
       - image: {{ .Image }}
-        name: ChatClient
+        name: chatclient
         env:
           - name: AZURE_CLIENT_ID
             value: {{ .Env.MANAGED_IDENTITY_CLIENT_ID }}
@@ -46,8 +50,12 @@ properties:
             value: https://agentapi.{{ .Env.AZURE_CONTAINER_APPS_ENVIRONMENT_DEFAULT_DOMAIN }}
           - name: ConnectionStrings__aoai
             secretRef: connectionstrings--aoai
+          - name: ConnectionStrings__chat-model-id
+            secretRef: connectionstrings--chat-model-id
+          - name: ConnectionStrings__embedding-model-id
+            secretRef: connectionstrings--embedding-model-id
     scale:
       minReplicas: 1
 tags:
-  azd-service-name: ChatClient
-  aspire-resource-name: ChatClient
+  azd-service-name: chatclient
+  aspire-resource-name: chatclient

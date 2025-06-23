@@ -1,6 +1,10 @@
 @description('The location for the resource(s) to be deployed.')
 param location string = resourceGroup().location
 
+param keyVaultName string = 'mykv${uniqueString(resourceGroup().id)}'
+
+param principalId string
+
 resource aoai 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
   name: take('aoai-${uniqueString(resourceGroup().id)}', 64)
   location: location
@@ -8,7 +12,7 @@ resource aoai 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
   properties: {
     customSubDomainName: toLower(take(concat('aoai', uniqueString(resourceGroup().id)), 24))
     publicNetworkAccess: 'Enabled'
-    disableLocalAuth: true
+    disableLocalAuth: false
   }
   sku: {
     name: 'S0'
@@ -18,7 +22,7 @@ resource aoai 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
   }
 }
 
-resource chatModelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
+resource chatModelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2025-04-01-preview' = {
   name: 'chatModelDeployment'
   properties: {
     model: {
@@ -28,7 +32,7 @@ resource chatModelDeployment 'Microsoft.CognitiveServices/accounts/deployments@2
     }
   }
   sku: {
-    name: 'Standard'
+    name: 'GlobalStandard'
     capacity: 8
   }
   parent: aoai
@@ -53,6 +57,45 @@ resource embeddingModelDeployment 'Microsoft.CognitiveServices/accounts/deployme
   ]
 }
 
-output connectionString string = 'Endpoint=${aoai.properties.endpoint}'
+resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {
+  name: keyVaultName
+  location: location
+  properties: {
+    enabledForTemplateDeployment: true
+    tenantId: tenant().tenantId
+    accessPolicies: [
+    ]
+    sku: {
+      name: 'standard'
+      family: 'A'
+    }
+  }
+}
 
+resource keyVaultSecret_AoaiKey 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
+  parent: keyVault
+  name: 'aoai-key'
+  properties: {
+    value: aoai.listKeys().key1
+  }
+}
+
+var keyVaultSecretUserRoleId = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '4633458b-17de-408a-b874-0445c86b69e6')
+
+resource keyVaultSecretUserRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(keyVaultSecretUserRoleId)
+  scope: keyVault
+  properties: {
+    principalId: principalId
+    roleDefinitionId: keyVaultSecretUserRoleId
+    principalType: 'ServicePrincipal'
+  }
+}
+
+output connectionString string = aoai.properties.endpoint
+output chatModelDeploymentId string = chatModelDeployment.name
+output embeddingModelDeploymentId string = embeddingModelDeployment.name
+output chatModelDeploymentName string = chatModelDeployment.name
+output aoaiKeyKvSecret string = keyVaultSecret_AoaiKey.properties.secretUri
 output name string = aoai.name
+output aoaiCustomSubDomainName string = aoai.properties.customSubDomainName

@@ -24,7 +24,16 @@ properties:
       - name: connectionstrings--aoai
         value: '{{ .Env.AOAI_CONNECTIONSTRING }}'
       - name: connectionstrings--redis
-        value: '{{ .Env.REDIS_CONNECTIONSTRING }}'
+        value: '{{ .Env.REDIS_ENDPOINT}}'
+      - name: connectionstrings--chatmodeldeployment
+        value: '{{ .Env.AOAI_CHAT_MODEL_DEPLOYMENT_NAME }}'
+      - name: connectionstrings--aoai-key
+        keyVaultUrl: '{{ .Env.AOAI_KEY_KEYVAULT_SECRET_URI }}'
+        identity: '{{ .Env.AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID }}'
+      - name: connectionstrings--aoai-resource-name
+        value: '{{ .Env.AOAI_NAME }}'
+      - name: connectionstrings--embedding-model-id
+        value: '{{ .Env.AOAI_EMBEDDING_MODEL_DEPLOYMENT_ID }}'      
   template:
     containers:
       - image: {{ .Image }}
@@ -46,6 +55,14 @@ properties:
             secretRef: connectionstrings--aoai
           - name: ConnectionStrings__redis
             secretRef: connectionstrings--redis
+          - name: ConnectionStrings__chatmodeldeployment
+            secretRef: connectionstrings--chatmodeldeployment
+          - name: ConnectionStrings__aoai-key
+            secretRef: connectionstrings--aoai-key
+          - name: ConnectionStrings__aoai-resource-name
+            secretRef: connectionstrings--aoai-resource-name
+          - name: ConnectionStrings__embedding-model-id
+            secretRef: connectionstrings--embedding-model-id          
     scale:
       minReplicas: 1
 tags:

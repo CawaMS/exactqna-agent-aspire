@@ -39,6 +39,8 @@ internal sealed class KBPlugin(IConfiguration config, ILogger<KBPlugin> logger)
                                                       config.GetConnectionString("embedding-model-id") ?? string.Empty,
                                                       1536, threshold: 0.15);
 
+        logger.LogInformation("Configuration AOAI-KEY: " + config.GetConnectionString("aoai-key"));
+
         logger.LogInformation("Initialized Redis connection provider and semantic cache.");
 
         var result = await cache.GetSimilarAsync(question);
