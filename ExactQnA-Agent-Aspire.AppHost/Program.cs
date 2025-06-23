@@ -15,8 +15,8 @@ aoai.AddDeployment(
 
 aoai.AddDeployment(
     name: "embeddingModelDeployment",
-    modelName: "text-embedding-3-large",
-    modelVersion: "1"
+    modelName: "text-embedding-ada-002",
+    modelVersion: "2"
 );
 
 var agentapi = builder.AddProject<Projects.AgentAPI>("agentapi")

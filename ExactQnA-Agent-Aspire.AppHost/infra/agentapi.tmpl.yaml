@@ -28,8 +28,7 @@ properties:
       - name: connectionstrings--chatmodeldeployment
         value: '{{ .Env.AOAI_CHAT_MODEL_DEPLOYMENT_NAME }}'
       - name: connectionstrings--aoai-key
-        keyVaultUrl: '{{ .Env.AOAI_KEY_KEYVAULT_SECRET_URI }}'
-        identity: '{{ .Env.AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID }}'
+        value: '{{ .Env.AOAI_KEY }}'
       - name: connectionstrings--aoai-resource-name
         value: '{{ .Env.AOAI_NAME }}'
       - name: connectionstrings--embedding-model-id

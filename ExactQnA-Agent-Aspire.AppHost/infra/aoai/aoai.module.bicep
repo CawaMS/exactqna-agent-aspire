@@ -43,8 +43,8 @@ resource embeddingModelDeployment 'Microsoft.CognitiveServices/accounts/deployme
   properties: {
     model: {
       format: 'OpenAI'
-      name: 'text-embedding-3-large'
-      version: '1'
+      name: 'text-embedding-ada-002'
+      version: '2'
     }
   }
   sku: {
@@ -80,7 +80,7 @@ resource keyVaultSecret_AoaiKey 'Microsoft.KeyVault/vaults/secrets@2023-07-01' =
   }
 }
 
-var keyVaultSecretUserRoleId = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '4633458b-17de-408a-b874-0445c86b69e6')
+var keyVaultSecretUserRoleId = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7')
 
 resource keyVaultSecretUserRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(keyVaultSecretUserRoleId)
@@ -99,3 +99,4 @@ output chatModelDeploymentName string = chatModelDeployment.name
 output aoaiKeyKvSecret string = keyVaultSecret_AoaiKey.properties.secretUri
 output name string = aoai.name
 output aoaiCustomSubDomainName string = aoai.properties.customSubDomainName
+output aoaiKey string = aoai.listKeys().key1

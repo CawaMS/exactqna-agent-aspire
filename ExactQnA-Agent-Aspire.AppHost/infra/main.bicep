@@ -75,5 +75,6 @@ output AOAI_EMBEDDING_MODEL_DEPLOYMENT_ID string = aoai.outputs.embeddingModelDe
 output AOAI_CHAT_MODEL_DEPLOYMENT_NAME string = aoai.outputs.chatModelDeploymentName
 output AOAI_KEY_KEYVAULT_SECRET_URI string = aoai.outputs.aoaiKeyKvSecret
 output AOAI_NAME string = aoai.outputs.aoaiCustomSubDomainName
+output AOAI_KEY string = aoai.outputs.aoaiKey
 output REDIS_CONNECTIONSTRING string = redis.outputs.connectionString
 output REDIS_ENDPOINT string = redis.outputs.redisEndpoint
