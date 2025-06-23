@@ -1,0 +1,69 @@
+api-version: 2024-02-02-preview
+location: {{ .Env.AZURE_LOCATION }}
+identity:
+  type: UserAssigned
+  userAssignedIdentities:
+    ? "{{ .Env.AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID }}"
+    : {}
+properties:
+  environmentId: {{ .Env.AZURE_CONTAINER_APPS_ENVIRONMENT_ID }}
+  configuration:
+    activeRevisionsMode: single
+    runtime:
+      dotnet:
+        autoConfigureDataProtection: true
+    ingress:
+      external: true
+      targetPort: {{ targetPortOrDefault 8080 }}
+      transport: http
+      allowInsecure: false
+    registries:
+      - server: {{ .Env.AZURE_CONTAINER_REGISTRY_ENDPOINT }}
+        identity: {{ .Env.AZURE_CONTAINER_REGISTRY_MANAGED_IDENTITY_ID }}
+    secrets:
+      - name: connectionstrings--aoai
+        value: '{{ .Env.AOAI_CONNECTIONSTRING }}'
+      - name: connectionstrings--redis
+        value: '{{ .Env.REDIS_ENDPOINT}}'
+      - name: connectionstrings--chatmodeldeployment
+        value: '{{ .Env.AOAI_CHAT_MODEL_DEPLOYMENT_NAME }}'
+      - name: connectionstrings--aoai-key
+        value: '{{ .Env.AOAI_KEY }}'
+      - name: connectionstrings--aoai-resource-name
+        value: '{{ .Env.AOAI_NAME }}'
+      - name: connectionstrings--embedding-model-id
+        value: '{{ .Env.AOAI_EMBEDDING_MODEL_DEPLOYMENT_ID }}'      
+  template:
+    containers:
+      - image: {{ .Image }}
+        name: agentapi
+        env:
+          - name: AZURE_CLIENT_ID
+            value: {{ .Env.MANAGED_IDENTITY_CLIENT_ID }}
+          - name: ASPNETCORE_FORWARDEDHEADERS_ENABLED
+            value: "true"
+          - name: HTTP_PORTS
+            value: '{{ targetPortOrDefault 0 }}'
+          - name: OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES
+            value: "true"
+          - name: OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES
+            value: "true"
+          - name: OTEL_DOTNET_EXPERIMENTAL_OTLP_RETRY
+            value: in_memory
+          - name: ConnectionStrings__aoai
+            secretRef: connectionstrings--aoai
+          - name: ConnectionStrings__redis
+            secretRef: connectionstrings--redis
+          - name: ConnectionStrings__chatmodeldeployment
+            secretRef: connectionstrings--chatmodeldeployment
+          - name: ConnectionStrings__aoai-key
+            secretRef: connectionstrings--aoai-key
+          - name: ConnectionStrings__aoai-resource-name
+            secretRef: connectionstrings--aoai-resource-name
+          - name: ConnectionStrings__embedding-model-id
+            secretRef: connectionstrings--embedding-model-id          
+    scale:
+      minReplicas: 1
+tags:
+  azd-service-name: agentapi
+  aspire-resource-name: agentapi

@@ -22,10 +22,10 @@ builder.Services.AddHttpClient<Exact_QnA_Service>(client =>
 //   cd this-project-directory
 //   dotnet user-secrets set AzureOpenAI:Endpoint https://YOUR-DEPLOYMENT-NAME.openai.azure.com
 var azureOpenAi = new AzureOpenAIClient(
-    new Uri(builder.Configuration["ConnectionStrings:openai"] ?? throw new InvalidOperationException("Missing configuration: AzureOpenAi:Endpoint. See the README for details.")),
+    new Uri(builder.Configuration["ConnectionStrings:aoai"] ?? throw new InvalidOperationException("Missing configuration: AzureOpenAi:Endpoint. See the README for details.")),
     new DefaultAzureCredential());
-var chatClient = azureOpenAi.AsChatClient("gpt-4o-mini");
-var embeddingGenerator = azureOpenAi.AsEmbeddingGenerator("text-embedding-3-small");
+var chatClient = azureOpenAi.AsChatClient(builder.Configuration["ConnectionStrings:chat-model-id"] ?? "gpt-4"); // "gpt-4"
+var embeddingGenerator = azureOpenAi.AsEmbeddingGenerator(builder.Configuration["ConnectionStrings:embedding-model-id"] ?? "text-embedding-ada-002"); // "text-embedding-ada-002"
 
 builder.Services.AddChatClient(chatClient).UseFunctionInvocation().UseLogging();
 builder.Services.AddEmbeddingGenerator(embeddingGenerator);

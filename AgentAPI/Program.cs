@@ -17,10 +17,11 @@ builder.Services.AddTransient<KBPlugin>();
 
 using var tempProvider = builder.Services.BuildServiceProvider();
 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+
 builder.Services.AddKernel()
-                .AddAzureOpenAIChatCompletion(builder.Configuration.GetConnectionString("aoai-chat-deployment") ?? string.Empty,
-                                              builder.Configuration.GetConnectionString("aoai-endpoint") ?? string.Empty,
-                                              builder.Configuration.GetConnectionString("aoai-key") ?? string.Empty)
+                .AddAzureOpenAIChatCompletion(builder.Configuration.GetConnectionString("chatmodeldeployment") ?? string.Empty,
+                                                  builder.Configuration.GetConnectionString("aoai") ?? string.Empty,
+                                                  new DefaultAzureCredential())
                 .Plugins.AddFromObject(tempProvider.GetRequiredService<KBPlugin>())
                 ;
 

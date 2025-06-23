@@ -14,11 +14,12 @@
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.1" />
     <PackageReference Include="Aspire.Hosting.Azure.CognitiveServices" Version="9.3.1" />
+    <PackageReference Include="Aspire.Hosting.Azure.Redis" Version="9.3.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AgentAPI\AgentAPI.csproj" />
-    <ProjectReference Include="..\ChatClient\ChatClient.csproj" />
+    <ProjectReference Include="..\chatclient\ChatClient.csproj" />
   </ItemGroup>
 
 </Project>
