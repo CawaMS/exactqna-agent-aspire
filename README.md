@@ -15,13 +15,21 @@ The Exact QnA Agent returns consistency and accurate answer from the various que
 1. Open a command prompt
 1. Change directory to the AppHost folder
 1. run ```azd up```
-1. Change directory to *Preload-KB-Redis* folder. Set the following user-secrets:
+1. Wait for the azd process to finish
+1. Change directory to *Preload-KB-Redis* folder. Set the following user-secrets to point to the resources you just provisioned:
     - Redis:SemanticCacheAzureProvider <rediss://:redis-primary-key@redis-domain-name:10000>
     - Redis:connectionString <redis-domain-name:10000,password=redis-primary-key,ssl=True,abortConnect=False>
     - AOAIResourceName <i.e. myAOAIResource, just the name, without domain>
     - AOAI:endpoint <https://resource-name.openai.azure.com/>
     - AOAI:embeddingDeploymentName <i.e. myEmbeddingDeploymentName>
     - AOAI:apiKey <i.e. AOAI API Key>
+1. Run the *Preload-KB-Redis* project locally to load some information into Redis
+1. Bring up the ChatClient serivce and try asking questions like:
+    - What is your return policy?
+    - What are your summer programs?
+    - What are the rules to return products and get my money back?
+    
+    Observe the behavior from consistent answers to these quetions. 
 
 ### Resources provisioned
 - Azure Container Environment
