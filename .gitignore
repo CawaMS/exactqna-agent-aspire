@@ -7,3 +7,5 @@ ExactQnA-Agent-Aspire.AppHost/bin/
 ExactQnA-Agent-Aspire.AppHost/obj/
 ExactQnA-Agent-Aspire.ServiceDefaults/bin/
 ExactQnA-Agent-Aspire.ServiceDefaults/obj/
+Preload-KB-Redis/bin/
+Preload-KB-Redis/obj/
