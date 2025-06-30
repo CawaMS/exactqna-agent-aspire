@@ -15,6 +15,13 @@ The Exact QnA Agent returns consistency and accurate answer from the various que
 1. Open a command prompt
 1. Change directory to the AppHost folder
 1. run ```azd up```
+1. Change directory to *Preload-KB-Redis* folder. Set the following user-secrets:
+    - Redis:SemanticCacheAzureProvider <rediss://:redis-primary-key@redis-domain-name:10000>
+    - Redis:connectionString <redis-domain-name:10000,password=redis-primary-key,ssl=True,abortConnect=False>
+    - AOAIResourceName <i.e. myAOAIResource, just the name, without domain>
+    - AOAI:endpoint <https://resource-name.openai.azure.com/>
+    - AOAI:embeddingDeploymentName <i.e. myEmbeddingDeploymentName>
+    - AOAI:apiKey <i.e. AOAI API Key>
 
 ### Resources provisioned
 - Azure Container Environment
